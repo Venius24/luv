@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#160a12">
+<title>Для самой любимой</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5e8a' d='M12 21C7 16.5 2 12.8 2 8.4 2 5.4 4.4 3 7.4 3c1.8 0 3.5.9 4.6 2.3C13.1 3.9 14.8 3 16.6 3 19.6 3 22 5.4 22 8.4c0 4.4-5 8.1-10 12.6z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="hearts-canvas" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <canvas id="stars-canvas" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <p class="hero-kicker">маленький сайт для большого чувства</p>
+    <h1 id="typewriter"><span id="type-text"></span><span class="caret"></span></h1>
+    <p class="hero-sub">Здесь нет ничего важного. Только ты, я и немного нашей магии.</p>
+  </div>
+  <a class="scroll-hint" href="#timer" aria-label="Листай вниз"><span></span></a>
+</header>
+
+<main>
+  <section id="timer" class="section reveal">
+    <h2>Мы вместе уже</h2>
+    <div class="timer-grid">
+      <div class="timer-cell"><span id="t-days">0</span><label>дней</label></div>
+      <div class="timer-cell"><span id="t-hours">0</span><label>часов</label></div>
+      <div class="timer-cell"><span id="t-mins">0</span><label>минут</label></div>
+      <div class="timer-cell"><span id="t-secs">0</span><label>секунд</label></div>
+    </div>
+    <p class="section-note">…и каждая из этих секунд того стоила</p>
+  </section>
+
+  <section id="game-love" class="section reveal">
+    <h2>Скажи честно…</h2>
+    <p class="section-note">Ты меня любишь?</p>
+    <div class="love-stage" id="love-stage">
+      <button id="btn-yes" class="pill-btn yes-btn">Да</button>
+      <button id="btn-no" class="pill-btn no-btn">Нет</button>
+    </div>
+    <p id="love-status" class="game-status"></p>
+  </section>
+
+  <section id="game-catch" class="section reveal">
+    <h2>Поймай моё сердце</h2>
+    <p class="section-note">Поймай его пять раз — получишь приз. Оно шустрое.</p>
+    <div class="arena" id="arena">
+      <button id="heart-prey" class="heart-prey" aria-label="Поймать сердце"><span class="heart-shape"></span></button>
+    </div>
+    <p id="catch-status" class="game-status"></p>
+  </section>
+
+  <section id="gallery" class="section reveal">
+    <h2>Наши моменты</h2>
+    <div class="polaroids" id="polaroids"></div>
+  </section>
+
+  <section id="letter" class="section reveal">
+    <h2>Письмо</h2>
+    <div class="letter">
+      <p>Привет, любимая.</p>
+      <p>Я не очень умею говорить красивые слова вживую — волнуюсь и всё забываю. Поэтому построил целый сайт, чтобы точно ничего не забыть.</p>
+      <p>Спасибо, что ты есть. За твою улыбку, за то, как ты смеёшься над моими глупыми шутками, за то, что рядом с тобой любой день — хороший.</p>
+      <p>Ты — моё самое лучшее «случайно». И я хочу, чтобы так было ещё очень-очень долго.</p>
+      <p>Я люблю тебя.</p>
+      <p class="signature">— твой</p>
+    </div>
+  </section>
+
+  <section id="compliments" class="section reveal">
+    <h2>Комплиментатор 3000</h2>
+    <p id="compliment-text" class="compliment-text">Нажми кнопку — скажу что-нибудь приятное.</p>
+    <button id="btn-compliment" class="pill-btn">Ещё!</button>
+  </section>
+
+  <section id="music" class="section reveal">
+    <h2>Музыкальная шкатулка</h2>
+    <p class="section-note">Мелодия, которая играет у меня в голове, когда я думаю о тебе.</p>
+    <button id="btn-music" class="pill-btn">Включить мелодию</button>
+  </section>
+
+  <section id="finale" class="section reveal finale-section">
+    <p class="section-note">Остался последний шаг…</p>
+    <button id="btn-finale" class="finale-btn">Нажми меня</button>
+  </section>
+</main>
+
+<footer>Сделано с любовью · <span id="year"></span></footer>
+
+<div id="finale-overlay" class="overlay hidden" role="dialog" aria-modal="true">
+  <div class="overlay-content">
+    <h2>Я люблю тебя</h2>
+    <p>Больше, чем вчера. Меньше, чем завтра.</p>
+    <button id="btn-close-overlay" class="pill-btn">Обнять в ответ</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
