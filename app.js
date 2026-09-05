@@ -272,6 +272,27 @@ const photos = [
 ];
 
 const polaroids = document.getElementById("polaroids");
+const photoOverlay = document.getElementById("photo-overlay");
+const photoOverlayImg = document.getElementById("photo-overlay-img");
+const photoOverlayCap = document.getElementById("photo-overlay-cap");
+const btnClosePhoto = document.getElementById("btn-close-photo");
+
+function openPhoto(p) {
+  photoOverlayImg.src = p.src;
+  photoOverlayImg.alt = p.cap;
+  photoOverlayCap.textContent = p.cap;
+  photoOverlay.classList.remove("hidden");
+}
+
+function closePhoto() {
+  photoOverlay.classList.add("hidden");
+}
+
+btnClosePhoto.addEventListener("click", closePhoto);
+photoOverlay.addEventListener("click", e => {
+  if (e.target === photoOverlay) closePhoto();
+});
+
 photos.forEach(p => {
   const fig = document.createElement("figure");
   fig.className = "polaroid";
@@ -283,6 +304,7 @@ photos.forEach(p => {
   const cap = document.createElement("figcaption");
   cap.textContent = p.cap;
   fig.append(img, cap);
+  fig.addEventListener("click", () => openPhoto(p));
   polaroids.appendChild(fig);
 });
 
@@ -437,6 +459,24 @@ closeOverlay.addEventListener("click", () => {
 overlay.addEventListener("click", e => {
   if (e.target === overlay) overlay.classList.add("hidden");
 });
+
+function anyOverlayOpen() {
+  return !overlay.classList.contains("hidden") || !photoOverlay.classList.contains("hidden");
+}
+
+addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  overlay.classList.add("hidden");
+  closePhoto();
+});
+
+new MutationObserver(() => {
+  document.body.style.overflow = anyOverlayOpen() ? "hidden" : "";
+}).observe(overlay, { attributes: true, attributeFilter: ["class"] });
+
+new MutationObserver(() => {
+  document.body.style.overflow = anyOverlayOpen() ? "hidden" : "";
+}).observe(photoOverlay, { attributes: true, attributeFilter: ["class"] });
 
 if (!REDUCED && window.matchMedia("(pointer: fine)").matches) {
   let lastTrail = 0;

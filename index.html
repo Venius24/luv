@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#160a12">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Маленький сайт для большого чувства — личный подарок для самой любимой.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Для самой любимой">
+<meta property="og:description" content="Маленький сайт для большого чувства.">
+<meta property="og:image" content="og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <title>Для самой любимой</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff5e8a' d='M12 21C7 16.5 2 12.8 2 8.4 2 5.4 4.4 3 7.4 3c1.8 0 3.5.9 4.6 2.3C13.1 3.9 14.8 3 16.6 3 19.6 3 22 5.4 22 8.4c0 4.4-5 8.1-10 12.6z'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -43,7 +52,7 @@
       <button id="btn-yes" class="pill-btn yes-btn">Да</button>
       <button id="btn-no" class="pill-btn no-btn">Нет</button>
     </div>
-    <p id="love-status" class="game-status"></p>
+    <p id="love-status" class="game-status" aria-live="polite"></p>
   </section>
 
   <section id="game-catch" class="section reveal">
@@ -52,7 +61,7 @@
     <div class="arena" id="arena">
       <button id="heart-prey" class="heart-prey" aria-label="Поймать сердце"><span class="heart-shape"></span></button>
     </div>
-    <p id="catch-status" class="game-status"></p>
+    <p id="catch-status" class="game-status" aria-live="polite"></p>
   </section>
 
   <section id="gallery" class="section reveal">
@@ -98,6 +107,14 @@
     <p>Больше, чем вчера. Меньше, чем завтра.</p>
     <button id="btn-close-overlay" class="pill-btn">Обнять в ответ</button>
   </div>
+</div>
+
+<div id="photo-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <button id="btn-close-photo" class="photo-close" aria-label="Закрыть">&times;</button>
+  <figure class="photo-overlay-content">
+    <img id="photo-overlay-img" src="" alt="">
+    <figcaption id="photo-overlay-cap"></figcaption>
+  </figure>
 </div>
 
 <script src="app.js"></script>
