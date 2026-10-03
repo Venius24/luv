@@ -327,6 +327,11 @@ h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; }
   z-index: 5;
 }
 
+.polaroid:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+
 .letter {
   position: relative;
   max-width: 620px;

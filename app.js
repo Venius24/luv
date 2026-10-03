@@ -281,11 +281,11 @@ function openPhoto(p) {
   photoOverlayImg.src = p.src;
   photoOverlayImg.alt = p.cap;
   photoOverlayCap.textContent = p.cap;
-  photoOverlay.classList.remove("hidden");
+  showOverlay(photoOverlay, btnClosePhoto);
 }
 
 function closePhoto() {
-  photoOverlay.classList.add("hidden");
+  hideOverlay(photoOverlay);
 }
 
 btnClosePhoto.addEventListener("click", closePhoto);
@@ -305,6 +305,14 @@ photos.forEach(p => {
   cap.textContent = p.cap;
   fig.append(img, cap);
   fig.addEventListener("click", () => openPhoto(p));
+  fig.tabIndex = 0;
+  fig.setAttribute("role", "button");
+  fig.setAttribute("aria-label", `Открыть фото: ${p.cap}`);
+  fig.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    openPhoto(p);
+  });
   polaroids.appendChild(fig);
 });
 
@@ -445,19 +453,32 @@ musicBtn.addEventListener("click", () => {
 const finaleBtn = document.getElementById("btn-finale");
 const overlay = document.getElementById("finale-overlay");
 const closeOverlay = document.getElementById("btn-close-overlay");
+const focusBeforeOverlay = new WeakMap();
+
+function showOverlay(element, focusTarget) {
+  focusBeforeOverlay.set(element, document.activeElement);
+  element.classList.remove("hidden");
+  focusTarget.focus();
+}
+
+function hideOverlay(element) {
+  if (element.classList.contains("hidden")) return;
+  element.classList.add("hidden");
+  focusBeforeOverlay.get(element)?.focus();
+}
 
 finaleBtn.addEventListener("click", () => {
   burstAtEl(finaleBtn, 60);
-  setTimeout(() => overlay.classList.remove("hidden"), 450);
+  setTimeout(() => showOverlay(overlay, closeOverlay), REDUCED ? 0 : 450);
 });
 
 closeOverlay.addEventListener("click", () => {
-  overlay.classList.add("hidden");
+  hideOverlay(overlay);
   burstAtEl(closeOverlay, 20);
 });
 
 overlay.addEventListener("click", e => {
-  if (e.target === overlay) overlay.classList.add("hidden");
+  if (e.target === overlay) hideOverlay(overlay);
 });
 
 function anyOverlayOpen() {
@@ -465,9 +486,21 @@ function anyOverlayOpen() {
 }
 
 addEventListener("keydown", e => {
-  if (e.key !== "Escape") return;
-  overlay.classList.add("hidden");
-  closePhoto();
+  const activeOverlay = !photoOverlay.classList.contains("hidden") ? photoOverlay
+    : !overlay.classList.contains("hidden") ? overlay : null;
+  if (!activeOverlay) return;
+  if (e.key === "Escape") {
+    hideOverlay(activeOverlay);
+  } else if (e.key === "Tab") {
+    const controls = [...activeOverlay.querySelectorAll("button:not([disabled])")];
+    if (!controls.length) return;
+    const first = controls[0], last = controls[controls.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
 });
 
 new MutationObserver(() => {
